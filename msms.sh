@@ -8,12 +8,12 @@
 #################################################################
 
 # telegram endpoint
-TG_API_URL="https://api.telegram.org/bot$(cat ../telegram-api-key.txt)/sendMessage"
+TG_API_URL="https://api.telegram.org/bot$(cat ../telegram-api-key.conf)/sendMessage"
 
 #################################################################
 # send message to telegram
 # parameter: message text
-# recipients chat id list should be in "recipients.txt" file
+# recipients chat id list should be in "recipients.conf" file
 #################################################################
 function send_message {
     for chat_id  in $(cat $MSMS_RECIPIENTS); do
@@ -42,12 +42,12 @@ RESPONSE="$(eval curl $MSMS_CURL_PARAMS \"$MSMS_SERVICE_ENDPOINT\")"
 EXIT_CODE=$?
 if [[ $EXIT_CODE != 0 ]]; then
     echo health-check \"$MSMS_SERVICE_NAME\" FAILED: CURL EXIT WITH $EXIT_CODE
-    MESSAGE="$(cat ../templates/curl-fail.txt)"
+    MESSAGE="$(cat ../templates/curl-fail.conf)"
     MESSAGE=$(eval echo $MESSAGE)
     send_message "$MESSAGE"
 elif [[ "$RESPONSE" != "$MSMS_EXPECTED" ]]; then
     echo health-check \"$MSMS_SERVICE_NAME\" FAILED: "$RESPONSE"
-    MESSAGE="$(cat ../templates/service-fail.txt)"
+    MESSAGE="$(cat ../templates/service-fail.conf)"
     MESSAGE=$(eval echo $MESSAGE)
     send_message "$MESSAGE"
 else
@@ -59,7 +59,7 @@ fi
 #################################################################
 if test "$1" = "DAILY"; then
     echo health-check \"$MSMS_SERVICE_NAME\" DAILY
-    MESSAGE="$(cat ../templates/daily.txt)"
+    MESSAGE="$(cat ../templates/daily.conf)"
     MESSAGE=$(eval echo $MESSAGE)
     send_message "$MESSAGE"
 fi

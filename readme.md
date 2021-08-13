@@ -27,7 +27,7 @@ MSMS_SERVICE_ENDPOINT='http://0.0.0.0'
 MSMS_CURL_PARAMS='-s -X POST -H "Content-Type: application/json" --connect-timeout 3 -m 7 -d @request.json'
 MSMS_EXPECTED='{"ok","true"}'
 # MSMS_EXPECTED_FILE='my-service-response.json'
-MSMS_RECIPIENTS='my-service-recipients.txt'
+MSMS_RECIPIENTS='my-service-recipients.conf'
 ```
 ### 4. RUN ON SCHEDULE
 - run: ```sudo crontab -e```
